@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-following-table
+      author: Bohdan Hovorukha
+      changes:
+        - createTable:
+            tableName: following
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: follower_id
+                  type: BIGINT
+                  constraints:
+                    references: users(id)
+                    foreignKeyName: fk_following_follower_id
+                    nullable: false
+              - column:
+                  name: following_id
+                  type: BIGINT
+                  constraints:
+                    references: users(id)
+                    foreignKeyName: fk_following_following_id
+                    nullable: false
+              - column:
+                  name: is_deleted
+                  type: BIT(1)
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
