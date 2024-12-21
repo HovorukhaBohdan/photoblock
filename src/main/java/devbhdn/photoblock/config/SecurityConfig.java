@@ -1,6 +1,7 @@
 package devbhdn.photoblock.config;
 
 import devbhdn.photoblock.security.JwtAuthenticationFilter;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
