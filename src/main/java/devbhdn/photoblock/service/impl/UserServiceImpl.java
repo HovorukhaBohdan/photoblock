@@ -1,6 +1,10 @@
 package devbhdn.photoblock.service.impl;
 
-import devbhdn.photoblock.dto.*;
+import devbhdn.photoblock.dto.UserEditProfileRequestDto;
+import devbhdn.photoblock.dto.UserEditUsernameRequestDto;
+import devbhdn.photoblock.dto.UserEditUsernameResponseDto;
+import devbhdn.photoblock.dto.UserRegistrationRequestDto;
+import devbhdn.photoblock.dto.UserResponseDto;
 import devbhdn.photoblock.exception.RegistrationException;
 import devbhdn.photoblock.exception.UserNotFoundException;
 import devbhdn.photoblock.mapper.UserMapper;

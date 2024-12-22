@@ -1,6 +1,10 @@
 package devbhdn.photoblock.service;
 
-import devbhdn.photoblock.dto.*;
+import devbhdn.photoblock.dto.UserEditProfileRequestDto;
+import devbhdn.photoblock.dto.UserEditUsernameRequestDto;
+import devbhdn.photoblock.dto.UserEditUsernameResponseDto;
+import devbhdn.photoblock.dto.UserRegistrationRequestDto;
+import devbhdn.photoblock.dto.UserResponseDto;
 
 public interface UserService {
     UserResponseDto register(UserRegistrationRequestDto requestDto);
