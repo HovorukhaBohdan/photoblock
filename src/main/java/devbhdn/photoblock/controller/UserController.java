@@ -2,6 +2,7 @@ package devbhdn.photoblock.controller;
 
 import devbhdn.photoblock.dto.UserEditProfileRequestDto;
 import devbhdn.photoblock.dto.UserEditUsernameRequestDto;
+import devbhdn.photoblock.dto.UserEditUsernameResponseDto;
 import devbhdn.photoblock.dto.UserResponseDto;
 import devbhdn.photoblock.model.User;
 import devbhdn.photoblock.service.UserService;
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @PatchMapping("/change-username")
-    public UserResponseDto UserResponseDto(
+    public UserEditUsernameResponseDto UserResponseDto(
             @RequestBody @Valid UserEditUsernameRequestDto requestDto,
             Authentication authentication
     ) {

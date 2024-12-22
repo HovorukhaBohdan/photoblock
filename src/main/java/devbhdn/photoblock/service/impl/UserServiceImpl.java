@@ -1,19 +1,14 @@
 package devbhdn.photoblock.service.impl;
 
-import devbhdn.photoblock.dto.UserEditUsernameRequestDto;
-import devbhdn.photoblock.dto.UserRegistrationRequestDto;
-import devbhdn.photoblock.dto.UserEditProfileRequestDto;
-import devbhdn.photoblock.dto.UserResponseDto;
+import devbhdn.photoblock.dto.*;
 import devbhdn.photoblock.exception.RegistrationException;
 import devbhdn.photoblock.exception.UserNotFoundException;
 import devbhdn.photoblock.mapper.UserMapper;
 import devbhdn.photoblock.model.User;
 import devbhdn.photoblock.repository.UserRepository;
+import devbhdn.photoblock.security.JwtUtil;
 import devbhdn.photoblock.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +18,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     @Override
     public UserResponseDto register(UserRegistrationRequestDto requestDto) {
@@ -49,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto changeUsername(
+    public UserEditUsernameResponseDto changeUsername(
             UserEditUsernameRequestDto requestDto,
             Long id
     ) {
@@ -57,9 +53,13 @@ public class UserServiceImpl implements UserService {
                 () -> new UserNotFoundException("Can't find user with id: " + id)
         );
 
-        user.setUsername(requestDto.newUsername());
+        String newUsername = requestDto.newUsername();
+        user.setUsername(newUsername);
+        userRepository.save(user);
 
-        return userMapper.toDto(userRepository.save(user));
+        String newToken = jwtUtil.generateToken(newUsername);
+
+        return new UserEditUsernameResponseDto(newUsername, newToken);
     }
 
     @Override
