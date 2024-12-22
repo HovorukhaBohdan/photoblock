@@ -2,7 +2,7 @@ package devbhdn.photoblock.mapper;
 
 import devbhdn.photoblock.config.MapperConfig;
 import devbhdn.photoblock.dto.UserRegistrationRequestDto;
-import devbhdn.photoblock.dto.UserRequestDto;
+import devbhdn.photoblock.dto.UserEditProfileRequestDto;
 import devbhdn.photoblock.dto.UserResponseDto;
 import devbhdn.photoblock.model.User;
 import org.mapstruct.Mapper;
@@ -13,5 +13,5 @@ public interface UserMapper {
 
     UserResponseDto toDto(User user);
 
-    User toEntity(UserRequestDto requestDto);
+    User toEntity(UserEditProfileRequestDto requestDto);
 }

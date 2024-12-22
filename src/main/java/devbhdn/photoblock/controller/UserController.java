@@ -1,15 +1,15 @@
 package devbhdn.photoblock.controller;
 
-import devbhdn.photoblock.dto.UserRequestDto;
+import devbhdn.photoblock.dto.UserEditProfileRequestDto;
+import devbhdn.photoblock.dto.UserEditUsernameRequestDto;
 import devbhdn.photoblock.dto.UserResponseDto;
+import devbhdn.photoblock.model.User;
 import devbhdn.photoblock.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -17,12 +17,38 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
 
-    @PutMapping("/edit")
+    @PatchMapping("/edit")
     public UserResponseDto editProfile(
-            @RequestBody @Valid UserRequestDto requestDto,
+            @RequestBody @Valid UserEditProfileRequestDto requestDto,
             Authentication authentication
     ) {
-        String username = authentication.getName();
-        return userService.editProfile(requestDto, username);
+        User user = (User) authentication.getPrincipal();
+        return userService.editProfile(requestDto, user.getId());
+    }
+
+    @PatchMapping("/change-username")
+    public UserResponseDto UserResponseDto(
+            @RequestBody @Valid UserEditUsernameRequestDto requestDto,
+            Authentication authentication
+    ) {
+        User user = (User) authentication.getPrincipal();
+        return userService.changeUsername(requestDto, user.getId());
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAccount(@PathVariable Long id) {
+        userService.deleteAccount(id);
+    }
+
+    @GetMapping("/me")
+    public UserResponseDto getProfile(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return userService.getProfile(user.getId());
+    }
+
+    @GetMapping("/{id}")
+    public UserResponseDto getUserProfile(@PathVariable Long id) {
+        return userService.getProfile(id);
     }
 }

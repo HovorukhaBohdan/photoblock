@@ -1,9 +1,8 @@
 package devbhdn.photoblock.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record UserRequestDto(
+public record UserEditProfileRequestDto(
         @NotNull(message = NOT_NULL_FIELD)
         String bio
 ) {

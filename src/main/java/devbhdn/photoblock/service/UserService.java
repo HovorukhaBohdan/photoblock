@@ -1,11 +1,18 @@
 package devbhdn.photoblock.service;
 
+import devbhdn.photoblock.dto.UserEditProfileRequestDto;
+import devbhdn.photoblock.dto.UserEditUsernameRequestDto;
 import devbhdn.photoblock.dto.UserRegistrationRequestDto;
-import devbhdn.photoblock.dto.UserRequestDto;
 import devbhdn.photoblock.dto.UserResponseDto;
 
 public interface UserService {
     UserResponseDto register(UserRegistrationRequestDto requestDto);
 
-    UserResponseDto editProfile(UserRequestDto requestDto, String username);
+    UserResponseDto editProfile(UserEditProfileRequestDto requestDto, Long id);
+
+    UserResponseDto changeUsername(UserEditUsernameRequestDto requestDto, Long id);
+
+    void deleteAccount(Long id);
+
+    UserResponseDto getProfile(Long id);
 }
