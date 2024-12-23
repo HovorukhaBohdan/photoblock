@@ -1,6 +1,5 @@
 package devbhdn.photoblock.controller;
 
-import devbhdn.photoblock.dto.post.PostEditRequestDto;
 import devbhdn.photoblock.dto.post.PostRequestDto;
 import devbhdn.photoblock.dto.post.PostResponseDto;
 import devbhdn.photoblock.model.User;
@@ -11,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -21,10 +21,10 @@ public class PostController {
 
     @PostMapping
     public PostResponseDto uploadPost(
-            @RequestParam MultipartFile file,
+            @RequestParam("image") MultipartFile file,
             @RequestBody PostRequestDto requestDto,
             Authentication authentication
-    ) {
+    ) throws IOException {
         User user = (User) authentication.getPrincipal();
         return postService.uploadPost(file, requestDto, user);
     }
@@ -41,7 +41,7 @@ public class PostController {
 
     @PatchMapping("/{id}")
     public PostResponseDto editPost(
-            @RequestBody PostEditRequestDto requestDto,
+            @RequestBody PostRequestDto requestDto,
             @PathVariable Long id,
             Authentication authentication
     ) {
