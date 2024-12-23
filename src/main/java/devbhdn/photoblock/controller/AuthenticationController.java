@@ -1,9 +1,9 @@
 package devbhdn.photoblock.controller;
 
-import devbhdn.photoblock.dto.UserLoginRequestDto;
-import devbhdn.photoblock.dto.UserLoginResponseDto;
-import devbhdn.photoblock.dto.UserRegistrationRequestDto;
-import devbhdn.photoblock.dto.UserResponseDto;
+import devbhdn.photoblock.dto.user.UserLoginRequestDto;
+import devbhdn.photoblock.dto.user.UserLoginResponseDto;
+import devbhdn.photoblock.dto.user.UserRegistrationRequestDto;
+import devbhdn.photoblock.dto.user.UserResponseDto;
 import devbhdn.photoblock.service.AuthenticationService;
 import devbhdn.photoblock.service.UserService;
 import jakarta.validation.Valid;

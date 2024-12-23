@@ -1,4 +1,4 @@
-package devbhdn.photoblock.dto;
+package devbhdn.photoblock.dto.user;
 
 public record UserResponseDto(
         Long id,

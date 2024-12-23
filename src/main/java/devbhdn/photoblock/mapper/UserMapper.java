@@ -1,8 +1,8 @@
 package devbhdn.photoblock.mapper;
 
 import devbhdn.photoblock.config.MapperConfig;
-import devbhdn.photoblock.dto.UserRegistrationRequestDto;
-import devbhdn.photoblock.dto.UserResponseDto;
+import devbhdn.photoblock.dto.user.UserRegistrationRequestDto;
+import devbhdn.photoblock.dto.user.UserResponseDto;
 import devbhdn.photoblock.model.User;
 import org.mapstruct.Mapper;
 

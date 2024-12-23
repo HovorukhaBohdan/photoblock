@@ -1,4 +1,4 @@
-package devbhdn.photoblock.dto;
+package devbhdn.photoblock.dto.user;
 
 import jakarta.validation.constraints.NotNull;
 

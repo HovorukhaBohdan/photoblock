@@ -1,7 +1,7 @@
 package devbhdn.photoblock.service.impl;
 
-import devbhdn.photoblock.dto.UserLoginRequestDto;
-import devbhdn.photoblock.dto.UserLoginResponseDto;
+import devbhdn.photoblock.dto.user.UserLoginRequestDto;
+import devbhdn.photoblock.dto.user.UserLoginResponseDto;
 import devbhdn.photoblock.security.JwtUtil;
 import devbhdn.photoblock.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package devbhdn.photoblock.dto;
+package devbhdn.photoblock.dto.user;
 
 import devbhdn.photoblock.validation.PasswordMatch;
 import jakarta.validation.constraints.NotBlank;
