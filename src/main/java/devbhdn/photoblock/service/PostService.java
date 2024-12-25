@@ -10,9 +10,10 @@ import devbhdn.photoblock.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface PostService {
-    PostResponseDto uploadPost(MultipartFile file, PostRequestDto requestDto, User user) throws IOException;
+    PostResponseDto uploadPost(MultipartFile file, String caption, User user)
+            throws IOException;
 
-    List<PostResponseDto> getPostsByUserId(Long userId);
+    List<PostResponseDto> getPostsByUsersUsername(String username);
 
     PostResponseDto getPost(Long id);
 

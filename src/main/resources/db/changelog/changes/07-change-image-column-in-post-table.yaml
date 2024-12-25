@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: change-image-column-in-post-table
+      author: Bohdan Hovorukha
+      changes:
+        - modifyDataType:
+            tableName: posts
+            columnName: image
+            newDataType: VARCHAR(255)
+        - renameColumn:
+            tableName: posts
+            oldColumnName: image
+            newColumnName: image_id
+            columnDataType: VARCHAR(255)

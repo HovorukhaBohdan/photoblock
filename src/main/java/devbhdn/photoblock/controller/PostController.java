@@ -6,6 +6,7 @@ import devbhdn.photoblock.model.User;
 import devbhdn.photoblock.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,19 +20,21 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public PostResponseDto uploadPost(
             @RequestParam("image") MultipartFile file,
-            @RequestBody PostRequestDto requestDto,
+            @RequestParam("caption") String caption,
             Authentication authentication
     ) throws IOException {
         User user = (User) authentication.getPrincipal();
-        return postService.uploadPost(file, requestDto, user);
+        return postService.uploadPost(file, caption, user);
     }
 
-    @GetMapping("/{userId}")
-    public List<PostResponseDto> getPostsByUserId(@PathVariable Long userId) {
-        return postService.getPostsByUserId(userId);
+    @GetMapping
+    public List<PostResponseDto> getPostsByUsersUsername(
+            @RequestParam String username
+    ) {
+        return postService.getPostsByUsersUsername(username);
     }
 
     @GetMapping("/{id}")

@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: clear-posts-table
+      author: Bohdan Hovorkha
+      changes:
+        - delete:
+            tableName: posts
