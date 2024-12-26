@@ -1,4 +1,4 @@
-package devbhdn.photoblock.dto;
+package devbhdn.photoblock.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
