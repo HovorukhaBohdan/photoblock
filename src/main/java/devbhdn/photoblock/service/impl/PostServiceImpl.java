@@ -16,15 +16,13 @@ import devbhdn.photoblock.repository.PostRepository;
 import devbhdn.photoblock.repository.UserRepository;
 import devbhdn.photoblock.service.PostService;
 import jakarta.annotation.PostConstruct;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,14 +30,14 @@ public class PostServiceImpl implements PostService {
     @Value("${dropbox.api.key}")
     private String dropboxApiKey;
     private DbxClientV2 client;
-    private final DbxRequestConfig config = DbxRequestConfig.newBuilder("photoblock")
-            .build();
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final PostMapper postMapper;
 
     @PostConstruct
     private void postConstruct() {
+        DbxRequestConfig config = DbxRequestConfig.newBuilder("photoblock")
+                .build();
         client = new DbxClientV2(config, dropboxApiKey);
     }
 

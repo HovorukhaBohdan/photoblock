@@ -5,9 +5,11 @@ import devbhdn.photoblock.dto.user.UserRegistrationRequestDto;
 import devbhdn.photoblock.dto.user.UserResponseDto;
 import devbhdn.photoblock.model.Post;
 import devbhdn.photoblock.model.User;
-import org.mapstruct.*;
-
 import java.util.List;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(config = MapperConfig.class)
 public interface UserMapper {
