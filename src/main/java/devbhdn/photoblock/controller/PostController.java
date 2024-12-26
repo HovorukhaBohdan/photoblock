@@ -1,7 +1,9 @@
 package devbhdn.photoblock.controller;
 
+import com.dropbox.core.DbxException;
 import devbhdn.photoblock.dto.post.PostRequestDto;
 import devbhdn.photoblock.dto.post.PostResponseDto;
+import devbhdn.photoblock.dto.post.PostWithImageLinkResponseDto;
 import devbhdn.photoblock.model.User;
 import devbhdn.photoblock.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -10,9 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
@@ -25,20 +25,13 @@ public class PostController {
             @RequestParam("image") MultipartFile file,
             @RequestParam("caption") String caption,
             Authentication authentication
-    ) throws IOException {
+    ) throws IOException, DbxException {
         User user = (User) authentication.getPrincipal();
         return postService.uploadPost(file, caption, user);
     }
 
-    @GetMapping
-    public List<PostResponseDto> getPostsByUsersUsername(
-            @RequestParam String username
-    ) {
-        return postService.getPostsByUsersUsername(username);
-    }
-
     @GetMapping("/{id}")
-    public PostResponseDto getPost(@PathVariable Long id) {
+    public PostWithImageLinkResponseDto getPost(@PathVariable Long id) throws DbxException {
         return postService.getPost(id);
     }
 
@@ -57,7 +50,7 @@ public class PostController {
     public void deletePost(
             @PathVariable Long id,
             Authentication authentication
-    ) {
+    ) throws DbxException {
         User user = (User) authentication.getPrincipal();
         postService.deletePost(id, user.getId());
     }

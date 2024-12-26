@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public record PostResponseDto(
         Long id,
         Long userId,
-        String imageLink,
+        String dropboxImageId,
         String caption,
         LocalDateTime createdAt
 ) {

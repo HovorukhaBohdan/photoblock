@@ -34,7 +34,7 @@ public class Post {
     private User user;
 
     @Column(name = "image_id", nullable = false)
-    private String dropBoxImageId;
+    private String dropboxImageId;
 
     private String caption;
 
