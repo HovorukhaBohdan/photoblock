@@ -39,10 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto editProfile(UserEditProfileRequestDto requestDto, Long id) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new UserNotFoundException("Can't find user with id: " + id)
-        );
-
+        User user = getUserById(id);
         user.setBio(requestDto.bio());
 
         return userMapper.toDto(userRepository.save(user));
@@ -53,11 +50,9 @@ public class UserServiceImpl implements UserService {
             UserEditUsernameRequestDto requestDto,
             Long id
     ) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new UserNotFoundException("Can't find user with id: " + id)
-        );
-
+        User user = getUserById(id);
         String newUsername = requestDto.newUsername();
+
         user.setUsername(newUsername);
         userRepository.save(user);
 
@@ -68,19 +63,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteAccount(Long id) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new UserNotFoundException("Can't find user with id: " + id)
-        );
-
+        User user = getUserById(id);
         userRepository.delete(user);
     }
 
     @Override
     public UserResponseDto getProfile(Long id) {
-        User user = userRepository.findById(id).orElseThrow(
+        User user = getUserById(id);
+        return userMapper.toDto(user);
+    }
+
+    private User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(
                 () -> new UserNotFoundException("Can't find user with id: " + id)
         );
-
-        return userMapper.toDto(user);
     }
 }
