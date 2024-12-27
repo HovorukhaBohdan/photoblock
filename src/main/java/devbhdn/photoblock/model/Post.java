@@ -16,11 +16,13 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Data
 @Entity
 @Table(name = "posts")
 @SQLDelete(sql = "UPDATE posts SET is_deleted = true WHERE id = ?")
+@Where(clause = "is_deleted=false")
 @NoArgsConstructor
 @Accessors(chain = true)
 public class Post {

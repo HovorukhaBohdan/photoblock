@@ -63,11 +63,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostWithImageLinkResponseDto getPost(Long id) throws DbxException {
-        Post post = postRepository.findById(id).orElseThrow(
-                () -> new PostNotFoundException(
-                        String.format("Can't find post with id: %d", id)
-                )
-        );
+        Post post = getPostById(id);
 
         String link = client.files().getTemporaryLink(post.getDropboxImageId()).getLink();
         PostWithImageLinkResponseDto dtoWithImageLink = postMapper.toDtoWithImageLink(post);
@@ -78,21 +74,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDto editPost(PostRequestDto requestDto, Long postId, Long userId) {
-        Post post = postRepository.findById(postId).orElseThrow(
-                () -> new PostNotFoundException(
-                        String.format("Can't find post with id: %d", postId)
-                )
-        );
-
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new PostNotFoundException(
-                        String.format("Can't find user with id: %d", userId)
-                )
-        );
+        Post post = getPostById(postId);
+        User user = getUserById(userId);
 
         if (post.getUser().equals(user)) {
             post.setCaption(requestDto.caption());
-
             return postMapper.toDto(postRepository.save(post));
         }
 
@@ -101,17 +87,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void deletePost(Long postId, Long userId) throws DbxException {
-        Post post = postRepository.findById(postId).orElseThrow(
-                () -> new PostNotFoundException(
-                        String.format("Can't find post with id: %d", postId)
-                )
-        );
-
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new PostNotFoundException(
-                        String.format("Can't find user with id: %d", userId)
-                )
-        );
+        Post post = getPostById(postId);
+        User user = getUserById(userId);
 
         if (!post.getUser().equals(user) || !user.hasRole("ADMIN")) {
             throw new AccessDeniedException("Access denied");
@@ -119,6 +96,22 @@ public class PostServiceImpl implements PostService {
 
         client.files().deleteV2(post.getDropboxImageId());
         postRepository.delete(post);
+    }
+
+    private Post getPostById(Long postId) {
+        return postRepository.findById(postId).orElseThrow(
+                () -> new PostNotFoundException(
+                        String.format("Can't find post with id: %d", postId)
+                )
+        );
+    }
+
+    private User getUserById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(
+                () -> new PostNotFoundException(
+                        String.format("Can't find user with id: %d", userId)
+                )
+        );
     }
 
     private String formPath(MultipartFile file, User user) {

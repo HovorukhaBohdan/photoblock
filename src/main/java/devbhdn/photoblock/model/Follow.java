@@ -14,11 +14,13 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Data
 @Entity
 @Table(name = "following")
 @SQLDelete(sql = "UPDATE following SET is_deleted = true WHERE id = ?")
+@Where(clause = "is_deleted=false")
 @NoArgsConstructor
 public class Follow {
     @Id
